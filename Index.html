@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ProLead AI</title>
+<style>
+body{font-family:Arial;background:#101827;color:white;margin:0;padding:20px}
+main{max-width:650px;margin:auto}
+h1{color:#38bdf8}
+section{background:#243247;padding:20px;border-radius:12px;margin:15px 0}
+select,button,textarea{display:block;width:100%;box-sizing:border-box;padding:12px;margin:10px 0;font-size:16px}
+button{background:#0284c7;color:white;border:0;border-radius:7px}
+article{background:#35465c;padding:12px;margin:8px 0;border-radius:7px}
+</style>
+</head>
+<body>
+<main>
+<h1>ProLead AI</h1>
+<p>Assistant de prospection commerciale</p>
+<section>
+<h2>Explorer des prospects</h2>
+<label>Secteur</label>
+<select id="secteur">
+<option>Tous</option><option>Immobilier</option><option>Informatique</option><option>Construction</option>
+</select>
+<label>Ville</label>
+<select id="ville">
+<option>Toutes</option><option>Bruxelles</option><option>Liège</option><option>Anvers</option>
+</select>
+<button onclick="afficher()">Afficher les exemples</button>
+<div id="resultats"></div>
+</section>
+<section>
+<h2>Préparer un message commercial</h2>
+<input id="nom" placeholder="Nom de l'entreprise" style="width:100%;box-sizing:border-box;padding:12px">
+<button onclick="generer()">Générer un message</button>
+<textarea id="message" rows="7"></textarea>
+</section>
+<p>Version de démonstration : prospects fictifs, sans recherche réelle ni IA.</p>
+</main>
+<script>
+const prospects=[
+{nom:"Atlas Habitat",secteur:"Immobilier",ville:"Bruxelles"},
+{nom:"Immo Horizon",secteur:"Immobilier",ville:"Liège"},
+{nom:"Tech Solutions",secteur:"Informatique",ville:"Bruxelles"},
+{nom:"Build Expert",secteur:"Construction",ville:"Anvers"}
+];
+function afficher(){
+let s=document.getElementById("secteur").value;
+let v=document.getElementById("ville").value;
+let liste=prospects.filter(p=>(s==="Tous"||p.secteur===s)&&(v==="Toutes"||p.ville===v));
+document.getElementById("resultats").innerHTML=liste.length?liste.map(p=>"<article>"+p.nom+" — "+p.secteur+" — "+p.ville+"</article>").join(""):"Aucun exemple trouvé.";
+}
+function generer(){
+let n=document.getElementById("nom").value.trim()||"votre entreprise";
+document.getElementById("message").value="Bonjour,\n\nJe souhaite échanger avec "+n+" au sujet de vos besoins en développement commercial.\n\nSeriez-vous disponible pour un court échange ?\n\nCordialement,\nProLead AI";
+}
+</script>
+</body>
+</html>
